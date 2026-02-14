@@ -18,7 +18,6 @@
       height: 100vh;
     }
 
-    /* snap container */
     .pages-container {
       height: 100vh;
       width: 100vw;
@@ -43,7 +42,7 @@
       overflow-y: auto;
     }
 
-    /* ----- FIXED ARROW (visible on all except last, hidden via js) ----- */
+    /* ----- FIXED ARROW ----- */
     .arrow-next {
       position: fixed;
       bottom: 1.8rem;
@@ -73,7 +72,7 @@
       background: #fde2e4;
     }
 
-    /* ---------- PAGE 1 : blush pink (#fde2e4) ---------- */
+    /* PAGE 1 */
     .page-1 {
       background-color: #fde2e4;
     }
@@ -153,7 +152,7 @@
       animation: shake 0.4s ease-out;
     }
 
-    /* ---------- PAGE 2 : cream ---------- */
+    /* PAGE 2 */
     .page-2 {
       background-color: #fff7ed;
     }
@@ -167,13 +166,21 @@
       max-width: 1000px;
     }
 
-    /* ---------- PAGE 3 : vintage reasons (exact love letter style) ---------- */
+    /* PAGE 3 - REASONS (love letter style) */
     .page-3 {
       background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)),
                   url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.15"><path d="M10,40 Q30,25 50,40 T90,40" stroke="%239d174d" fill="none" stroke-width="1.5"/><path d="M15,60 Q35,45 55,60 T95,60" stroke="%239d174d" fill="none" stroke-width="1.5"/><circle cx="25" cy="75" r="3" fill="%239d174d"/><circle cx="75" cy="30" r="3" fill="%239d174d"/></svg>');
       background-size: 200px, cover;
       background-color: #f3dfd7;
       background-blend-mode: overlay;
+    }
+
+    .page-title {
+      font-size: 3.8rem;
+      color: #7d4c4a;
+      margin-bottom: 0.5rem;
+      font-weight: 350;
+      text-shadow: 0 0 10px #ffdbd0;
     }
 
     .reasons-panel {
@@ -218,9 +225,9 @@
       border-radius: 20px;
     }
 
-    /* ---------- PAGE 3.5 : image & "for you" ---------- */
+    /* PAGE 3.5 - image & "for you" */
     .page-35 {
-      background-color: #fef5e6; /* warm beige */
+      background-color: #fef5e6;
     }
     .surprise-image {
       max-width: 85%;
@@ -238,7 +245,7 @@
       text-shadow: 0 2px 12px #ffd8b0;
     }
 
-    /* ---------- PAGE 4 : love letter (untouched) ---------- */
+    /* PAGE 4 - love letter */
     .page-4 {
       background-color: #fff0eb;
     }
@@ -269,7 +276,7 @@
       border-radius: 20px;
     }
 
-    /* ---------- PAGE 6 : final (deep pink, no "the end") ---------- */
+    /* PAGE 6 - final */
     .page-6 {
       background-color: #cf7b8b;
     }
@@ -290,16 +297,6 @@
       text-shadow: 2px 2px 0 #a24d5a;
     }
 
-    /* page title (used on page3) */
-    .page-title {
-      font-size: 3.8rem;
-      color: #7d4c4a;
-      margin-bottom: 0.5rem;
-      font-weight: 350;
-      text-shadow: 0 0 10px #ffdbd0;
-    }
-
-    /* misc */
     .hidden {
       display: none;
     }
@@ -323,19 +320,19 @@
       <div class="quiet-text">Some lil things I really love</div>
     </section>
 
-    <!-- PAGE 3 – reasons (exact text, same style as love letter) -->
+    <!-- PAGE 3 – reasons panel (will be filled by js) -->
     <section class="page page-3" id="page3">
       <h2 class="page-title">the lil things I love</h2>
       <div class="reasons-panel" id="reasonsPanel"></div>
     </section>
 
-    <!-- PAGE 3.5 – sunflower surprise replaced with image & "for you" -->
+    <!-- PAGE 3.5 – image & "for you" -->
     <section class="page page-35" id="page35">
       <img src="https://i.postimg.cc/fWprky5M/1c30cd728e27ef84f7359e7e29c490d9.jpg" alt="sunflower field" class="surprise-image">
       <div class="image-caption">for you</div>
     </section>
 
-    <!-- PAGE 4 – love letter (unchanged) -->
+    <!-- PAGE 4 – love letter -->
     <section class="page page-4" id="page4">
       <h2 style="font-size:2.8rem; color:#a1434b; margin-bottom:0.8rem; text-align:center;">a love letter from me to you</h2>
       <div class="loveletter-box">
@@ -358,7 +355,7 @@
       </div>
     </section>
 
-    <!-- PAGE 6 – final (no "the end" line) -->
+    <!-- PAGE 6 – final -->
     <section class="page page-6" id="page6">
       <div style="text-align:center;">
         <div class="final-heart">❤️</div>
@@ -372,7 +369,7 @@
 
   <script>
     (function() {
-      // ----- POPULATE REASONS PANEL (exactly the 70+ lines) -----
+      // ---------- POPULATE REASONS (the lil things I love) ----------
       const reasonsList = [
         "I love the way you say my name.",
         "I love the way you remember small details I told you weeks ago.",
@@ -455,14 +452,17 @@
         });
       }
 
-      // ----- BUTTON FUNCTIONALITY (YES / NO) -----
+      // ---------- BUTTONS (YES / NO) – FIXED ----------
       const yesBtn = document.getElementById('yesBtn');
       const noBtn = document.getElementById('noBtn');
       const noResponse = document.getElementById('noResponse');
       const container = document.getElementById('pagesContainer');
       const arrow = document.getElementById('nextArrow');
 
-      // smooth scroll to page by index
+      // Ensure hidden response is hidden at start
+      noResponse.classList.add('hidden-response');
+
+      // Smooth scroll to page index
       function goToPage(index) {
         const pages = document.querySelectorAll('.page');
         if (pages[index]) {
@@ -470,32 +470,35 @@
         }
       }
 
-      // YES button: go to page2 (index 1)
-      yesBtn.addEventListener('click', () => goToPage(1));
+      // YES button: go to page 2 (index 1)
+      yesBtn.addEventListener('click', function() {
+        goToPage(1);  // page2
+      });
 
       // NO button: playful interaction
-      noBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        // show big text
+      noBtn.addEventListener('click', function() {
+        // Remove hidden class, set text
+        noResponse.classList.remove('hidden-response');
         noResponse.innerText = 'How dare you?';
         noResponse.style.visibility = 'visible';
         noResponse.style.opacity = '1';
+        
+        // Add shake
         noResponse.classList.add('shake');
         setTimeout(() => noResponse.classList.remove('shake'), 500);
 
-        // change to "Think again" after 1 sec
+        // After 0.9 sec change to "Think again"
         setTimeout(() => {
           noResponse.innerText = 'Think again';
         }, 900);
 
-        // hide after 2.5 sec
+        // After 2.5 sec hide again
         setTimeout(() => {
-          noResponse.innerText = '';
-          noResponse.style.visibility = 'hidden';
+          noResponse.classList.add('hidden-response');
         }, 2500);
       });
 
-      // ----- ARROW: hide on last page, always navigate next -----
+      // ---------- ARROW: hide on last page, navigate next ----------
       function updateArrowVisibility() {
         const pages = document.querySelectorAll('.page');
         let currentIdx = 0;
@@ -517,7 +520,7 @@
       container.addEventListener('scroll', updateArrowVisibility);
       window.addEventListener('load', updateArrowVisibility);
 
-      // custom arrow click: go to next page (smooth)
+      // Custom arrow click: go to next page (smooth)
       arrow.addEventListener('click', function(e) {
         e.preventDefault();
         const pages = document.querySelectorAll('.page');
@@ -528,4 +531,11 @@
             currentIdx = i;
             break;
           }
-            
+        }
+        if (currentIdx < pages.length - 1) {
+          pages[currentIdx + 1].scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      // Double-check: ensure noResponse hidden at start
+      noResponse.classList.ad
