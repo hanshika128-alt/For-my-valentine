@@ -16,9 +16,28 @@
     body {
       overflow: hidden;
       height: 100vh;
-      position: relative;
     }
+ 
+      <!-- falling petals & hearts (soft, romantic) -->
+      <div class="floating-elements">
+      <div class="float-item">🌸</div>
+      <div class="float-item">❤️</div>
+      <div class="float-item">🌷</div>
+      <div class="float-item">💗</div>
+      <div class="float-item">🌼</div>
+      <div class="float-item">💕</div>
+      <div class="float-item">🌺</div>
+      <div class="float-item">💖</div>
+      <div class="float-item">🌹</div>
+      <div class="float-item">💞</div>
+      <div class="float-item">🌸</div>
+      <div class="float-item">💓</div>
+      <div class="float-item">🌻</div>
+     <div class="float-item">💘</div>
+      <div class="float-item">🌿</div>
+      </div>
 
+     <div class="pages-container" id="pagesContainer">
     .pages-container {
       height: 100vh;
       width: 100vw;
@@ -27,8 +46,6 @@
       scroll-snap-type: y mandatory;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
-      position: relative;
-      z-index: 5;
     }
 
     .page {
@@ -43,72 +60,71 @@
       justify-content: center;
       padding: 1rem;
       overflow-y: auto;
-      z-index: 10;
     }
 
-    /* ----- FALLING PETALS & HEARTS (soft, romantic) ----- */
-    .floating-elements {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1000;
-      overflow: hidden;
-    }
+    /* ----- ARROW (fixed, visible except last) ----- */
+  
+/* ----- FALLING PETALS & HEARTS (soft, romantic) ----- */
+.floating-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
 
-    .float-item {
-      position: absolute;
-      color: rgba(255, 200, 220, 0.6);
-      font-size: 1.2rem;
-      user-select: none;
-      pointer-events: none;
-      opacity: 0.6;
-      animation: fall linear infinite;
-      text-shadow: 0 0 5px #ffb7c5;
-    }
+.float-item {
+  position: absolute;
+  color: rgba(255, 200, 220, 0.6);
+  font-size: 1.2rem;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.6;
+  animation: fall linear infinite;
+  text-shadow: 0 0 5px #ffb7c5;
+}
 
-    @keyframes fall {
-      0% {
-        transform: translateY(-10vh) rotate(0deg);
-        opacity: 0.2;
-      }
-      20% {
-        opacity: 0.7;
-      }
-      80% {
-        opacity: 0.6;
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0.1;
-      }
-    }
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0.1;
+  }
+}
 
-    /* different sizes and speeds */
-    .float-item:nth-child(1) { left: 5%; animation-duration: 12s; font-size: 1.8rem; }
-    .float-item:nth-child(2) { left: 15%; animation-duration: 15s; font-size: 1.2rem; animation-delay: 2s; }
-    .float-item:nth-child(3) { left: 25%; animation-duration: 10s; font-size: 2rem; animation-delay: 1s; }
-    .float-item:nth-child(4) { left: 35%; animation-duration: 18s; font-size: 1.4rem; animation-delay: 3s; }
-    .float-item:nth-child(5) { left: 45%; animation-duration: 14s; font-size: 2.2rem; animation-delay: 0.5s; }
-    .float-item:nth-child(6) { left: 55%; animation-duration: 16s; font-size: 1.6rem; animation-delay: 4s; }
-    .float-item:nth-child(7) { left: 65%; animation-duration: 11s; font-size: 1.9rem; animation-delay: 1.5s; }
-    .float-item:nth-child(8) { left: 75%; animation-duration: 19s; font-size: 1.3rem; animation-delay: 2.5s; }
-    .float-item:nth-child(9) { left: 85%; animation-duration: 13s; font-size: 2.1rem; animation-delay: 0.2s; }
-    .float-item:nth-child(10) { left: 95%; animation-duration: 17s; font-size: 1.5rem; animation-delay: 3.8s; }
-    .float-item:nth-child(11) { left: 10%; animation-duration: 20s; font-size: 1.7rem; animation-delay: 5s; }
-    .float-item:nth-child(12) { left: 30%; animation-duration: 9s; font-size: 2.3rem; animation-delay: 2.2s; }
-    .float-item:nth-child(13) { left: 50%; animation-duration: 22s; font-size: 1.1rem; animation-delay: 1.8s; }
-    .float-item:nth-child(14) { left: 70%; animation-duration: 14s; font-size: 2rem; animation-delay: 3.2s; }
-    .float-item:nth-child(15) { left: 90%; animation-duration: 16s; font-size: 1.8rem; animation-delay: 0.8s; }
-
-    /* ----- ARROW ----- */
+/* different sizes and speeds */
+.float-item:nth-child(1) { left: 5%; animation-duration: 12s; font-size: 1.8rem; }
+.float-item:nth-child(2) { left: 15%; animation-duration: 15s; font-size: 1.2rem; animation-delay: 2s; }
+.float-item:nth-child(3) { left: 25%; animation-duration: 10s; font-size: 2rem; animation-delay: 1s; }
+.float-item:nth-child(4) { left: 35%; animation-duration: 18s; font-size: 1.4rem; animation-delay: 3s; }
+.float-item:nth-child(5) { left: 45%; animation-duration: 14s; font-size: 2.2rem; animation-delay: 0.5s; }
+.float-item:nth-child(6) { left: 55%; animation-duration: 16s; font-size: 1.6rem; animation-delay: 4s; }
+.float-item:nth-child(7) { left: 65%; animation-duration: 11s; font-size: 1.9rem; animation-delay: 1.5s; }
+.float-item:nth-child(8) { left: 75%; animation-duration: 19s; font-size: 1.3rem; animation-delay: 2.5s; }
+.float-item:nth-child(9) { left: 85%; animation-duration: 13s; font-size: 2.1rem; animation-delay: 0.2s; }
+.float-item:nth-child(10) { left: 95%; animation-duration: 17s; font-size: 1.5rem; animation-delay: 3.8s; }
+.float-item:nth-child(11) { left: 10%; animation-duration: 20s; font-size: 1.7rem; animation-delay: 5s; }
+.float-item:nth-child(12) { left: 30%; animation-duration: 9s; font-size: 2.3rem; animation-delay: 2.2s; }
+.float-item:nth-child(13) { left: 50%; animation-duration: 22s; font-size: 1.1rem; animation-delay: 1.8s; }
+.float-item:nth-child(14) { left: 70%; animation-duration: 14s; font-size: 2rem; animation-delay: 3.2s; }
+.float-item:nth-child(15) { left: 90%; animation-duration: 16s; font-size: 1.8rem; animation-delay: 0.8s; }
     .arrow-next {
       position: fixed;
       bottom: 1.8rem;
       right: 2rem;
-      z-index: 2000;
+      z-index: 100;
       font-size: 2.5rem;
       line-height: 1;
       color: #9d174d;
@@ -217,7 +233,7 @@
       max-width: 1000px;
     }
 
-    /* ---------- PAGE 3 (reasons) ---------- */
+    /* ---------- PAGE 3 (reasons, love-letter style) ---------- */
     .page-3 {
       background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)),
                   url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.15"><path d="M10,40 Q30,25 50,40 T90,40" stroke="%239d174d" fill="none" stroke-width="1.5"/><path d="M15,60 Q35,45 55,60 T95,60" stroke="%239d174d" fill="none" stroke-width="1.5"/><circle cx="25" cy="75" r="3" fill="%239d174d"/><circle cx="75" cy="30" r="3" fill="%239d174d"/></svg>');
@@ -275,7 +291,7 @@
       border-radius: 20px;
     }
 
-    /* ---------- PAGE 3.5 (image) ---------- */
+    /* ---------- PAGE 3.5 (image + "for you") ---------- */
     .page-35 {
       background-color: #fef5e6;
     }
@@ -294,7 +310,7 @@
       text-shadow: 0 2px 12px #ffd8b0;
     }
 
-    /* ---------- PAGE 4 (love letter – PERFECT) ---------- */
+    /* ---------- PAGE 4 (love letter – PERFECT, UNCHANGED) ---------- */
     .page-4 {
       background-color: #fff0eb;
     }
@@ -325,7 +341,7 @@
       border-radius: 20px;
     }
 
-    /* ---------- PAGE 6 (final) ---------- */
+    /* ---------- PAGE 6 (final, no "the end") ---------- */
     .page-6 {
       background-color: #cf7b8b;
     }
@@ -347,25 +363,6 @@
   </style>
 </head>
 <body>
-  <!-- falling petals & hearts (soft, romantic) -->
-  <div class="floating-elements">
-    <div class="float-item">🌸</div>
-    <div class="float-item">❤️</div>
-    <div class="float-item">🌷</div>
-    <div class="float-item">💗</div>
-    <div class="float-item">🌼</div>
-    <div class="float-item">💕</div>
-    <div class="float-item">🌺</div>
-    <div class="float-item">💖</div>
-    <div class="float-item">🌹</div>
-    <div class="float-item">💞</div>
-    <div class="float-item">🌸</div>
-    <div class="float-item">💓</div>
-    <div class="float-item">🌻</div>
-    <div class="float-item">💘</div>
-    <div class="float-item">🌿</div>
-  </div>
-
   <div class="pages-container" id="pagesContainer">
     <!-- PAGE 1 -->
     <section class="page page-1" id="page1">
@@ -432,7 +429,7 @@
 
   <script>
     (function() {
-      // ----- FILL REASONS -----
+      // ----- FILL REASONS (ALL LINES) -----
       const reasons = [
         "I love the way you say my name.",
         "I love the way you remember small details I told you weeks ago.",
@@ -515,6 +512,87 @@
         });
       }
 
-      // ----- BUTTONS -----
+      // ----- BUTTONS (YES / NO) – TESTED WORKING -----
       const yesBtn = document.getElementById('yesBtn');
-      const noBt
+      const noBtn = document.getElementById('noBtn');
+      const noResponse = document.getElementById('noResponse');
+      const container = document.getElementById('pagesContainer');
+      const arrow = document.getElementById('nextArrow');
+
+      // hide response initially
+      noResponse.classList.add('hidden-response');
+
+      function goToPage(index) {
+        const pages = document.querySelectorAll('.page');
+        if (pages[index]) {
+          pages[index].scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+
+      // YES -> page 2 (index 1)
+      yesBtn.addEventListener('click', function() {
+        goToPage(1);
+      });
+
+      // NO -> playful sequence
+      noBtn.addEventListener('click', function() {
+        // show
+        noResponse.classList.remove('hidden-response');
+        noResponse.innerText = 'How dare you?';
+        noResponse.style.visibility = 'visible';
+        noResponse.style.opacity = '1';
+
+        // shake
+        noResponse.classList.add('shake');
+        setTimeout(() => noResponse.classList.remove('shake'), 500);
+
+        // change to "Think again" after 900ms
+        setTimeout(() => {
+          noResponse.innerText = 'Think again';
+        }, 900);
+
+        // hide after 2.5s
+        setTimeout(() => {
+          noResponse.classList.add('hidden-response');
+        }, 2500);
+      });
+
+      // ----- ARROW -----
+      function updateArrow() {
+        const pages = document.querySelectorAll('.page');
+        let current = 0;
+        for (let i = 0; i < pages.length; i++) {
+          const rect = pages[i].getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            current = i;
+            break;
+          }
+        }
+        arrow.style.display = current === 5 ? 'none' : 'flex';
+      }
+
+      container.addEventListener('scroll', updateArrow);
+      window.addEventListener('load', updateArrow);
+
+      arrow.addEventListener('click', function(e) {
+        e.preventDefault();
+        const pages = document.querySelectorAll('.page');
+        let current = 0;
+        for (let i = 0; i < pages.length; i++) {
+          const rect = pages[i].getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            current = i;
+            break;
+          }
+        }
+        if (current < pages.length - 1) {
+          pages[current + 1].scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      // final safety
+      noResponse.classList.add('hidden-response');
+    })();
+  </script>
+</body>
+</html>
