@@ -38,11 +38,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1rem;
       overflow-y: auto;
     }
 
-    /* ----- FIXED ARROW (visible on all except last) ----- */
+    /* ----- ARROW (fixed, visible except last) ----- */
     .arrow-next {
       position: fixed;
       bottom: 1.8rem;
@@ -64,7 +64,6 @@
       transition: 0.2s;
       border: 1px solid rgba(255,255,240,0.8);
       font-weight: 300;
-      pointer-events: auto;
     }
 
     .arrow-next:hover {
@@ -72,7 +71,7 @@
       background: #fde2e4;
     }
 
-    /* PAGE 1 – blush pink */
+    /* ---------- PAGE 1 ---------- */
     .page-1 {
       background-color: #fde2e4;
     }
@@ -80,17 +79,14 @@
     .main-heading {
       font-size: 4.5rem;
       color: #9d174d;
-      margin-bottom: 0.75rem;
-      text-shadow: 0 2px 12px rgba(255, 200, 210, 0.8);
-      font-weight: 400;
+      margin-bottom: 0.5rem;
       text-align: center;
     }
 
     .sub-heading {
       font-size: 2rem;
       color: #9d174d;
-      margin-bottom: 3rem;
-      opacity: 0.9;
+      margin-bottom: 2.5rem;
       text-align: center;
     }
 
@@ -117,22 +113,16 @@
     }
 
     .pill-btn:hover {
-      transform: scale(1.02);
       background: #ffe2e6;
-    }
-
-    .no-btn {
-      background: #fef0f2;
     }
 
     #noResponse {
       font-size: 3rem;
       color: #9d174d;
-      margin-top: 2.5rem;
+      margin-top: 2rem;
       font-weight: 600;
       min-height: 5rem;
       text-align: center;
-      transition: 0.2s;
     }
 
     .hidden-response {
@@ -153,21 +143,20 @@
       animation: shake 0.4s ease-out;
     }
 
-    /* PAGE 2 – cream */
+    /* ---------- PAGE 2 ---------- */
     .page-2 {
       background-color: #fff7ed;
     }
 
     .quiet-text {
-      font-size: 4.2rem;
+      font-size: 4rem;
       color: #a5555b;
       text-align: center;
       line-height: 1.3;
-      font-weight: 330;
       max-width: 1000px;
     }
 
-    /* PAGE 3 – reasons (EXACT love letter style) */
+    /* ---------- PAGE 3 (reasons, love-letter style) ---------- */
     .page-3 {
       background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)),
                   url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.15"><path d="M10,40 Q30,25 50,40 T90,40" stroke="%239d174d" fill="none" stroke-width="1.5"/><path d="M15,60 Q35,45 55,60 T95,60" stroke="%239d174d" fill="none" stroke-width="1.5"/><circle cx="25" cy="75" r="3" fill="%239d174d"/><circle cx="75" cy="30" r="3" fill="%239d174d"/></svg>');
@@ -177,40 +166,39 @@
     }
 
     .page-title {
-      font-size: 3.8rem;
+      font-size: 3.5rem;
       color: #7d4c4a;
       margin-bottom: 0.5rem;
-      font-weight: 350;
       text-shadow: 0 0 10px #ffdbd0;
     }
 
     .reasons-panel {
       background: rgba(253, 242, 237, 0.92);
       border-radius: 48px 48px 48px 12px;
-      padding: 2.2rem 2.8rem;
-      max-width: 1000px;
-      width: 85%;
+      padding: 2rem 2.5rem;
+      max-width: 950px;
+      width: 90%;
       max-height: 70vh;
       overflow-y: auto;
       box-shadow: 0 30px 40px -16px #996b66;
       border: 2px solid #ffe1d4;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: #2f1e1b;
-      line-height: 1.8;
+      line-height: 1.7;
       backdrop-filter: blur(2px);
     }
 
     .reasons-panel p {
-      margin: 1rem 0;
+      margin: 0.8rem 0;
       display: flex;
       align-items: flex-start;
-      gap: 0.9rem;
+      gap: 0.8rem;
     }
 
     .heart-bullet {
       color: #b91c4b;
-      font-size: 1.8rem;
-      filter: drop-shadow(0 0 5px #ffb0b0);
+      font-size: 1.7rem;
+      filter: drop-shadow(0 0 4px #ffb0b0);
       flex-shrink: 0;
     }
 
@@ -226,7 +214,7 @@
       border-radius: 20px;
     }
 
-    /* PAGE 3.5 – image + "for you" */
+    /* ---------- PAGE 3.5 (image + "for you") ---------- */
     .page-35 {
       background-color: #fef5e6;
     }
@@ -237,16 +225,15 @@
       box-shadow: 0 25px 35px -8px rgba(160, 100, 50, 0.3);
       border: 6px solid #fff4e2;
       object-fit: cover;
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.5rem;
     }
     .image-caption {
       font-size: 2.8rem;
       color: #9d6b4a;
-      font-weight: 340;
       text-shadow: 0 2px 12px #ffd8b0;
     }
 
-    /* PAGE 4 – love letter (PERFECT, UNCHANGED) */
+    /* ---------- PAGE 4 (love letter – PERFECT, UNCHANGED) ---------- */
     .page-4 {
       background-color: #fff0eb;
     }
@@ -277,7 +264,7 @@
       border-radius: 20px;
     }
 
-    /* PAGE 6 – final (no "the end") */
+    /* ---------- PAGE 6 (final, no "the end") ---------- */
     .page-6 {
       background-color: #cf7b8b;
     }
@@ -286,26 +273,21 @@
       line-height: 1;
       color: #ffe2e7;
       text-shadow: 0 0 30px #fff0f0;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
       filter: drop-shadow(0 10px 12px #a14259);
     }
     .final-message {
       font-size: 3rem;
       color: white;
-      font-weight: 300;
       text-align: center;
       max-width: 800px;
       text-shadow: 2px 2px 0 #a24d5a;
-    }
-
-    .hidden {
-      display: none;
     }
   </style>
 </head>
 <body>
   <div class="pages-container" id="pagesContainer">
-    <!-- PAGE 1 – intro (buttons guaranteed to work) -->
+    <!-- PAGE 1 -->
     <section class="page page-1" id="page1">
       <h1 class="main-heading">For you</h1>
       <div class="sub-heading">I made something for you, wanna see?</div>
@@ -316,24 +298,24 @@
       <div id="noResponse" class="hidden-response"></div>
     </section>
 
-    <!-- PAGE 2 – title page -->
+    <!-- PAGE 2 -->
     <section class="page page-2" id="page2">
       <div class="quiet-text">Some lil things I really love</div>
     </section>
 
-    <!-- PAGE 3 – reasons panel (will be filled with all 70+ lines) -->
+    <!-- PAGE 3 (reasons) -->
     <section class="page page-3" id="page3">
       <h2 class="page-title">the lil things I love</h2>
       <div class="reasons-panel" id="reasonsPanel"></div>
     </section>
 
-    <!-- PAGE 3.5 – image & "for you" (replaces sunflower) -->
+    <!-- PAGE 3.5 (image) -->
     <section class="page page-35" id="page35">
-      <img src="https://i.postimg.cc/fWprky5M/1c30cd728e27ef84f7359e7e29c490d9.jpg" alt="beautiful memory" class="surprise-image">
+      <img src="https://i.postimg.cc/fWprky5M/1c30cd728e27ef84f7359e7e29c490d9.jpg" alt="beautiful" class="surprise-image">
       <div class="image-caption">for you</div>
     </section>
 
-    <!-- PAGE 4 – love letter (EXACT, UNTOUCHED) -->
+    <!-- PAGE 4 (love letter - untouched) -->
     <section class="page page-4" id="page4">
       <h2 style="font-size:2.8rem; color:#a1434b; margin-bottom:0.8rem; text-align:center;">a love letter from me to you</h2>
       <div class="loveletter-box">
@@ -356,7 +338,7 @@
       </div>
     </section>
 
-    <!-- PAGE 6 – final (no "the end" line) -->
+    <!-- PAGE 6 (final) -->
     <section class="page page-6" id="page6">
       <div style="text-align:center;">
         <div class="final-heart">❤️</div>
@@ -365,13 +347,13 @@
     </section>
   </div>
 
-  <!-- fixed arrow -->
+  <!-- arrow -->
   <a href="#" id="nextArrow" class="arrow-next">→</a>
 
   <script>
     (function() {
-      // ========== 1. POPULATE REASONS (the lil things I love) ==========
-      const reasonsList = [
+      // ----- FILL REASONS (ALL LINES) -----
+      const reasons = [
         "I love the way you say my name.",
         "I love the way you remember small details I told you weeks ago.",
         "I love the way you have a bed voice when you first wake up.",
@@ -446,24 +428,23 @@
 
       const panel = document.getElementById('reasonsPanel');
       if (panel) {
-        reasonsList.forEach(line => {
+        reasons.forEach(text => {
           const p = document.createElement('p');
-          p.innerHTML = `<span class="heart-bullet">💗</span> ${line}`;
+          p.innerHTML = `<span class="heart-bullet">💗</span> ${text}`;
           panel.appendChild(p);
         });
       }
 
-      // ========== 2. BUTTONS (YES / NO) – 100% FUNCTIONAL ==========
+      // ----- BUTTONS (YES / NO) – TESTED WORKING -----
       const yesBtn = document.getElementById('yesBtn');
       const noBtn = document.getElementById('noBtn');
       const noResponse = document.getElementById('noResponse');
       const container = document.getElementById('pagesContainer');
       const arrow = document.getElementById('nextArrow');
 
-      // Ensure noResponse starts hidden (critical)
+      // hide response initially
       noResponse.classList.add('hidden-response');
 
-      // Smooth scroll to page index
       function goToPage(index) {
         const pages = document.querySelectorAll('.page');
         if (pages[index]) {
@@ -471,63 +452,70 @@
         }
       }
 
-      // YES button: go to page 2 (index 1)
-      yesBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        goToPage(1);  // page2
+      // YES -> page 2 (index 1)
+      yesBtn.addEventListener('click', function() {
+        goToPage(1);
       });
 
-      // NO button: playful sequence
-      noBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        // remove hidden class to show
+      // NO -> playful sequence
+      noBtn.addEventListener('click', function() {
+        // show
         noResponse.classList.remove('hidden-response');
         noResponse.innerText = 'How dare you?';
         noResponse.style.visibility = 'visible';
         noResponse.style.opacity = '1';
-        
-        // shake animation
+
+        // shake
         noResponse.classList.add('shake');
         setTimeout(() => noResponse.classList.remove('shake'), 500);
 
-        // change to "Think again" after 0.9 sec
+        // change to "Think again" after 900ms
         setTimeout(() => {
           noResponse.innerText = 'Think again';
         }, 900);
 
-        // hide after 2.5 sec
+        // hide after 2.5s
         setTimeout(() => {
           noResponse.classList.add('hidden-response');
         }, 2500);
       });
 
-      // ========== 3. ARROW: hide on last page, navigate next ==========
-      function updateArrowVisibility() {
+      // ----- ARROW -----
+      function updateArrow() {
         const pages = document.querySelectorAll('.page');
-        let currentIdx = 0;
+        let current = 0;
         for (let i = 0; i < pages.length; i++) {
           const rect = pages[i].getBoundingClientRect();
           if (rect.top <= 100 && rect.bottom >= 100) {
-            currentIdx = i;
+            current = i;
             break;
           }
         }
-        // page6 is index 5
-        if (currentIdx === 5) {
-          arrow.style.display = 'none';
-        } else {
-          arrow.style.display = 'flex';
-        }
+        arrow.style.display = current === 5 ? 'none' : 'flex';
       }
 
-      container.addEventListener('scroll', updateArrowVisibility);
-      window.addEventListener('load', updateArrowVisibility);
+      container.addEventListener('scroll', updateArrow);
+      window.addEventListener('load', updateArrow);
 
-      // Custom arrow click: go to next page (smooth)
       arrow.addEventListener('click', function(e) {
         e.preventDefault();
         const pages = document.querySelectorAll('.page');
-        let currentIdx = 0;
+        let current = 0;
         for (let i = 0; i < pages.length; i++) {
           const rect = pages[i].getBoundingClientRect();
-          if (rect.top <= 100 &&
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            current = i;
+            break;
+          }
+        }
+        if (current < pages.length - 1) {
+          pages[current + 1].scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      // final safety
+      noResponse.classList.add('hidden-response');
+    })();
+  </script>
+</body>
+</html>
