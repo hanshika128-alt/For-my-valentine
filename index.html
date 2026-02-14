@@ -1,457 +1,531 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For you · a soft journey</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
-            scroll-behavior: smooth;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For you · a soft journey</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+      scroll-behavior: smooth;
+    }
 
-        body {
-            overflow: hidden;
-        }
+    body {
+      overflow: hidden;
+      height: 100vh;
+    }
 
-        .pages-container {
-            height: 100vh;
-            width: 100vw;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            scroll-snap-type: y mandatory;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-        }
+    /* snap container */
+    .pages-container {
+      height: 100vh;
+      width: 100vw;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
 
-        .page {
-            height: 100vh;
-            width: 100vw;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            transition: background 0.3s;
-            overflow-y: auto;
-        }
+    .page {
+      height: 100vh;
+      width: 100vw;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
 
-        /* universal arrow */
-        .arrow-next {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.8rem;
-            z-index: 50;
-            font-size: 2.2rem;
-            line-height: 1;
-            color: #9d174d;
-            background: rgba(255, 240, 240, 0.6);
-            backdrop-filter: blur(4px);
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(157, 23, 77, 0.2);
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255,255,255,0.5);
-            font-weight: 300;
-            pointer-events: auto;
-        }
+    /* ----- FIXED ARROW (visible on all except last, hidden via js) ----- */
+    .arrow-next {
+      position: fixed;
+      bottom: 1.8rem;
+      right: 2rem;
+      z-index: 100;
+      font-size: 2.5rem;
+      line-height: 1;
+      color: #9d174d;
+      background: rgba(255, 240, 240, 0.7);
+      backdrop-filter: blur(6px);
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(157, 23, 77, 0.3);
+      transition: 0.2s;
+      border: 1px solid rgba(255,255,240,0.8);
+      font-weight: 300;
+      pointer-events: auto;
+    }
 
-        .arrow-next:hover {
-            transform: scale(1.1);
-            background: #fde2e4;
-            box-shadow: 0 6px 16px rgba(157,23,77,0.3);
-        }
+    .arrow-next:hover {
+      transform: scale(1.1);
+      background: #fde2e4;
+    }
 
-        /* page1 blush */
-        .page-1 {
-            background-color: #fde2e4;
-        }
+    /* ---------- PAGE 1 : blush pink (#fde2e4) ---------- */
+    .page-1 {
+      background-color: #fde2e4;
+    }
 
-        h1, h2, h3 {
-            font-weight: 400;
-            letter-spacing: 0.02em;
-        }
+    .main-heading {
+      font-size: 4.5rem;
+      color: #9d174d;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 12px rgba(255, 200, 210, 0.8);
+      font-weight: 400;
+    }
 
-        .main-heading {
-            font-size: 4rem;
-            color: #9d174d;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 10px rgba(255, 200, 220, 0.7);
-        }
+    .sub-heading {
+      font-size: 2rem;
+      color: #9d174d;
+      margin-bottom: 3rem;
+      opacity: 0.9;
+      text-align: center;
+    }
 
-        .sub-heading {
-            font-size: 1.8rem;
-            color: #9d174dcc;
-            margin-bottom: 3rem;
-        }
+    .btn-group {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-        .btn-group {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
+    .pill-btn {
+      border: none;
+      background: white;
+      padding: 1rem 2.8rem;
+      border-radius: 60px;
+      font-size: 2rem;
+      font-weight: 500;
+      color: #9d174d;
+      box-shadow: 0 12px 18px -8px rgba(157, 23, 77, 0.4);
+      cursor: pointer;
+      transition: 0.15s;
+      border: 1px solid #ffc0cb;
+      min-width: 180px;
+    }
 
-        .pill-btn {
-            border: none;
-            background: white;
-            padding: 1rem 2.5rem;
-            border-radius: 60px;
-            font-size: 1.7rem;
-            font-weight: 500;
-            color: #9d174d;
-            box-shadow: 0 10px 15px -5px rgba(157, 23, 77, 0.3);
-            cursor: pointer;
-            transition: all 0.15s;
-            border: 1px solid #ffc1cc;
-            min-width: 160px;
-        }
+    .pill-btn:hover {
+      transform: scale(1.02);
+      background: #ffe2e6;
+    }
 
-        .pill-btn:hover {
-            transform: scale(1.02);
-            background: #ffe4e6;
-        }
+    .no-btn {
+      background: #fef0f2;
+    }
 
-        .no-btn {
-            background: #fef1f2;
-            color: #9d174d;
-        }
+    #noResponse {
+      font-size: 3rem;
+      color: #9d174d;
+      margin-top: 2.5rem;
+      font-weight: 600;
+      min-height: 5rem;
+      text-align: center;
+      transition: 0.2s;
+    }
 
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(-8px); }
-            40% { transform: translateX(8px); }
-            60% { transform: translateX(-4px); }
-            80% { transform: translateX(4px); }
-            100% { transform: translateX(0); }
-        }
+    .hidden-response {
+      visibility: hidden;
+      opacity: 0;
+    }
 
-        .shake {
-            animation: shake 0.4s ease-in-out;
-        }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-10px); }
+      40% { transform: translateX(10px); }
+      60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); }
+      100% { transform: translateX(0); }
+    }
 
-        #noResponse {
-            font-size: 2.8rem;
-            color: #9d174d;
-            margin-top: 2rem;
-            font-weight: 600;
-            transition: all 0.2s;
-            min-height: 5rem;
-        }
+    .shake {
+      animation: shake 0.4s ease-out;
+    }
 
-        .hidden-response {
-            visibility: hidden;
-            opacity: 0;
-        }
+    /* ---------- PAGE 2 : cream ---------- */
+    .page-2 {
+      background-color: #fff7ed;
+    }
 
-        /* page2 cream */
-        .page-2 {
-            background-color: #fff7ed;
-        }
+    .quiet-text {
+      font-size: 4.2rem;
+      color: #a5555b;
+      text-align: center;
+      line-height: 1.3;
+      font-weight: 330;
+      max-width: 1000px;
+    }
 
-        .quiet-text {
-            font-size: 4rem;
-            color: #a64d4d;
-            text-align: center;
-            line-height: 1.3;
-            max-width: 900px;
-            font-weight: 340;
-        }
+    /* ---------- PAGE 3 : vintage reasons (exact love letter style) ---------- */
+    .page-3 {
+      background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)),
+                  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.15"><path d="M10,40 Q30,25 50,40 T90,40" stroke="%239d174d" fill="none" stroke-width="1.5"/><path d="M15,60 Q35,45 55,60 T95,60" stroke="%239d174d" fill="none" stroke-width="1.5"/><circle cx="25" cy="75" r="3" fill="%239d174d"/><circle cx="75" cy="30" r="3" fill="%239d174d"/></svg>');
+      background-size: 200px, cover;
+      background-color: #f3dfd7;
+      background-blend-mode: overlay;
+    }
 
-        /* page3 vintage letter reasons - same style as love letter */
-        .page-3 {
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.2"><path d="M10,40 Q30,25 50,40 T90,40" stroke="%239d174d" fill="none" stroke-width="1.5"/><path d="M15,60 Q35,45 55,60 T95,60" stroke="%239d174d" fill="none" stroke-width="1.5"/><circle cx="25" cy="75" r="3" fill="%239d174d"/><circle cx="75" cy="30" r="3" fill="%239d174d"/></svg>');
-            background-size: 200px, cover;
-            background-color: #f5e3df;
-            background-blend-mode: overlay;
-        }
+    .reasons-panel {
+      background: rgba(253, 242, 237, 0.92);
+      border-radius: 48px 48px 48px 12px;
+      padding: 2.2rem 2.8rem;
+      max-width: 1000px;
+      width: 85%;
+      max-height: 70vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 40px -16px #996b66;
+      border: 2px solid #ffe1d4;
+      font-size: 1.25rem;
+      color: #2f1e1b;
+      line-height: 1.8;
+      backdrop-filter: blur(2px);
+    }
 
-        .reasons-panel {
-            background: rgba(253, 242, 237, 0.9);  /* same as loveletter background */
-            border-radius: 48px 48px 48px 12px;    /* same as loveletter shape */
-            padding: 2.5rem;
-            max-width: 900px;
-            width: 85%;
-            max-height: 70vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 40px -12px #b07d74;
-            border: 2px solid #ffdad2;
-            font-size: 1.2rem;
-            color: #2d1e1b;
-            line-height: 1.8;
-        }
+    .reasons-panel p {
+      margin: 1rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
 
-        .reasons-panel p {
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
+    .heart-bullet {
+      color: #b91c4b;
+      font-size: 1.8rem;
+      filter: drop-shadow(0 0 5px #ffb0b0);
+      flex-shrink: 0;
+    }
 
-        .heart-bullet {
-            color: #b91c4b;
-            font-size: 1.6rem;
-            filter: drop-shadow(0 0 4px #ffb6c1);
-        }
+    .reasons-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+    .reasons-panel::-webkit-scrollbar-track {
+      background: #ffded5;
+      border-radius: 20px;
+    }
+    .reasons-panel::-webkit-scrollbar-thumb {
+      background: #b76b75;
+      border-radius: 20px;
+    }
 
-        .reasons-panel::-webkit-scrollbar {
-            width: 6px;
-        }
-        .reasons-panel::-webkit-scrollbar-track {
-            background: #ffded5;
-            border-radius: 20px;
-        }
-        .reasons-panel::-webkit-scrollbar-thumb {
-            background: #c46f7a;
-            border-radius: 20px;
-        }
+    /* ---------- PAGE 3.5 : image & "for you" ---------- */
+    .page-35 {
+      background-color: #fef5e6; /* warm beige */
+    }
+    .surprise-image {
+      max-width: 85%;
+      max-height: 65vh;
+      border-radius: 40px;
+      box-shadow: 0 25px 35px -8px rgba(160, 100, 50, 0.3);
+      border: 6px solid #fff4e2;
+      object-fit: cover;
+      margin-bottom: 1.8rem;
+    }
+    .image-caption {
+      font-size: 2.8rem;
+      color: #9d6b4a;
+      font-weight: 340;
+      text-shadow: 0 2px 12px #ffd8b0;
+    }
 
-        /* sunflower page with new image and "for you" */
-        .page-35 {
-            background: #fef7e9;
-        }
-        .custom-image {
-            max-width: 80%;
-            max-height: 60vh;
-            border-radius: 40px;
-            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
-            border: 5px solid #fff2e0;
-        }
-        .image-caption {
-            font-size: 2.5rem;
-            color: #a65d2c;
-            font-weight: 350;
-            text-shadow: 0 2px 8px #ffd7b0;
-        }
+    /* ---------- PAGE 4 : love letter (untouched) ---------- */
+    .page-4 {
+      background-color: #fff0eb;
+    }
+    .loveletter-box {
+      background: rgba(253, 242, 237, 0.92);
+      border-radius: 48px 48px 48px 12px;
+      padding: 2.5rem;
+      max-width: 800px;
+      max-height: 70vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 40px -12px #b07d74;
+      border: 2px solid #ffdad2;
+      font-size: 1.2rem;
+      color: #2d1e1b;
+      line-height: 1.7;
+      white-space: pre-line;
+      backdrop-filter: blur(2px);
+    }
+    .loveletter-box::-webkit-scrollbar {
+      width: 6px;
+    }
+    .loveletter-box::-webkit-scrollbar-track {
+      background: #ffded5;
+      border-radius: 20px;
+    }
+    .loveletter-box::-webkit-scrollbar-thumb {
+      background: #c46f7a;
+      border-radius: 20px;
+    }
 
-        /* page 4 loveletter (unchanged) */
-        .page-4 {
-            background-color: #fff0eb;
-        }
-        .loveletter-box {
-            background: rgba(253, 242, 237, 0.9);
-            border-radius: 48px 48px 48px 12px;
-            padding: 2.5rem;
-            max-width: 800px;
-            max-height: 70vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 40px -12px #b07d74;
-            border: 2px solid #ffdad2;
-            font-size: 1.2rem;
-            color: #2d1e1b;
-            line-height: 1.7;
-            white-space: pre-line;
-        }
+    /* ---------- PAGE 6 : final (deep pink, no "the end") ---------- */
+    .page-6 {
+      background-color: #cf7b8b;
+    }
+    .final-heart {
+      font-size: 13rem;
+      line-height: 1;
+      color: #ffe2e7;
+      text-shadow: 0 0 30px #fff0f0;
+      margin-bottom: 1.2rem;
+      filter: drop-shadow(0 10px 12px #a14259);
+    }
+    .final-message {
+      font-size: 3rem;
+      color: white;
+      font-weight: 300;
+      text-align: center;
+      max-width: 800px;
+      text-shadow: 2px 2px 0 #a24d5a;
+    }
 
-        /* final page (without the line) */
-        .page-6 {
-            background-color: #cf7b8b;
-        }
-        .final-heart {
-            font-size: 12rem;
-            line-height: 1;
-            color: #ffe2e5;
-            text-shadow: 0 0 25px #ffffff80;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 8px 10px #a13e55);
-        }
-        .final-text {
-            font-size: 3rem;
-            color: white;
-            font-weight: 300;
-            text-align: center;
-            max-width: 800px;
-            text-shadow: 2px 2px 0 #9d4d5d;
-        }
-        /* hidden utility */
-        .hidden-response {
-            visibility: hidden;
-            opacity: 0;
-        }
-        .hidden {
-            display: none;
-        }
-        .page-title {
-            font-size: 3.5rem;
-            color: #9d174d;
-            margin-bottom: 2rem;
-            font-weight: 360;
-        }
-    </style>
+    /* page title (used on page3) */
+    .page-title {
+      font-size: 3.8rem;
+      color: #7d4c4a;
+      margin-bottom: 0.5rem;
+      font-weight: 350;
+      text-shadow: 0 0 10px #ffdbd0;
+    }
+
+    /* misc */
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="pages-container" id="pagesContainer">
-        <!-- PAGE 1 : intro (buttons fixed) -->
-        <section class="page page-1" id="page1">
-            <h1 class="main-heading">For you</h1>
-            <h2 class="sub-heading">I made something for you, wanna see?</h2>
-            <div class="btn-group">
-                <button class="pill-btn" id="yesBtn">Yes ❤️</button>
-                <button class="pill-btn no-btn" id="noBtn">No 😭</button>
-            </div>
-            <div id="noResponse" class="hidden-response"></div>
-        </section>
+  <div class="pages-container" id="pagesContainer">
+    <!-- PAGE 1 – intro -->
+    <section class="page page-1" id="page1">
+      <h1 class="main-heading">For you</h1>
+      <div class="sub-heading">I made something for you, wanna see?</div>
+      <div class="btn-group">
+        <button class="pill-btn" id="yesBtn">Yes ❤️</button>
+        <button class="pill-btn no-btn" id="noBtn">No 😭</button>
+      </div>
+      <div id="noResponse" class="hidden-response"></div>
+    </section>
 
-        <!-- PAGE 2: title page -->
-        <section class="page page-2" id="page2">
-            <div class="quiet-text">Some lil things I really love</div>
-        </section>
+    <!-- PAGE 2 – title page -->
+    <section class="page page-2" id="page2">
+      <div class="quiet-text">Some lil things I really love</div>
+    </section>
 
-        <!-- PAGE 3: reasons (exactly as love letter style) -->
-        <section class="page page-3" id="page3">
-            <h2 class="page-title" style="margin-bottom:0.2rem; color:#794c4a;">the lil things I love</h2>
-            <div class="reasons-panel" id="reasonsPanel"></div>
-        </section>
+    <!-- PAGE 3 – reasons (exact text, same style as love letter) -->
+    <section class="page page-3" id="page3">
+      <h2 class="page-title">the lil things I love</h2>
+      <div class="reasons-panel" id="reasonsPanel"></div>
+    </section>
 
-        <!-- PAGE 3.5 : image page with new URL and caption "for you" -->
-        <section class="page page-35" id="page35">
-            <img src="https://i.postimg.cc/fWprky5M/1c30cd728e27ef84f7359e7e29c490d9.jpg" alt="lovely memory" class="custom-image">
-            <div class="image-caption">for you</div>
-        </section>
+    <!-- PAGE 3.5 – sunflower surprise replaced with image & "for you" -->
+    <section class="page page-35" id="page35">
+      <img src="https://i.postimg.cc/fWprky5M/1c30cd728e27ef84f7359e7e29c490d9.jpg" alt="sunflower field" class="surprise-image">
+      <div class="image-caption">for you</div>
+    </section>
 
-        <!-- PAGE 4 love letter (unchanged) -->
-        <section class="page page-4" id="page4">
-            <h2 style="font-size:2.8rem; color:#a1434b; margin-bottom:1rem; text-align:center;">a love letter from me to you</h2>
-            <div class="loveletter-box">
-                My Dearest Axam ❤️<br><br>
-                I wanted to build something that could hold even a fraction of how much you mean to me❤️😌.<br>
-                Since we met you’ve been my favorite person. They say the best things in life aren't things, they’re people. But in our case, the best thing in my life started with a notification.<br><br>
-                I know we’re separated by so many miles and different time zones, but when I’m talking to you, none of that seems to matter. You’ve managed to become the most important part of my day without even being in the same room. You make me feel more seen than anyone I’ve ever met in person❤️.<br><br>
-                Thank you for choosing me every day, despite the distance. 💗<br>
-                There are miles between us, different streets outside our windows, and maybe even different weather in our skies, but when I close my eyes and hear your voice, all of that disappears❤️. You aren't just a name on a screen, you are my best friend, my biggest supporter, and the person I look for the second I wake up.❤️<br><br>
-                I love the way we can talk for hours about everything and nothing, and how you know exactly how to comfort me without even being able to hold my hand.💗❤️<br>
-                Distance is just a test to see how far love can travel, and I think we’re winning. Thank you for being my person.❤️<br>
-                And I am counting, counting down the clicks until we’re finally together in person.💗<br>
-                They say you can't find everything you’re looking for on the internet, but I’m pretty sure I proved them wrong the day I met you.❤️<br><br>
-                I never expected that a screen could hold so much personality, so much kindness, and so much of my heart. Even though I can’t reach out and grab your hand right now, I feel you with me.❤️<br>
-                Distance is just a number, but what we have is a vibe that most people don't find even when they’re standing right next to each other. ❤️<br>
-                And you know what you’re the only person who truly gets me. I might not be able to steal your hoodies yet, but I’ve already stolen your heart (no refunds, sorry).😁❤️<br>
-                I Love you to the moon and back ❤️.<br><br>
-                Forever yours,<br>
-                Hanshika ❤️
-            </div>
-        </section>
+    <!-- PAGE 4 – love letter (unchanged) -->
+    <section class="page page-4" id="page4">
+      <h2 style="font-size:2.8rem; color:#a1434b; margin-bottom:0.8rem; text-align:center;">a love letter from me to you</h2>
+      <div class="loveletter-box">
+        My Dearest Axam ❤️<br><br>
+        I wanted to build something that could hold even a fraction of how much you mean to me❤️😌.<br>
+        Since we met you’ve been my favorite person. They say the best things in life aren't things, they’re people. But in our case, the best thing in my life started with a notification.<br><br>
+        I know we’re separated by so many miles and different time zones, but when I’m talking to you, none of that seems to matter. You’ve managed to become the most important part of my day without even being in the same room. You make me feel more seen than anyone I’ve ever met in person❤️.<br><br>
+        Thank you for choosing me every day, despite the distance. 💗<br>
+        There are miles between us, different streets outside our windows, and maybe even different weather in our skies, but when I close my eyes and hear your voice, all of that disappears❤️. You aren't just a name on a screen, you are my best friend, my biggest supporter, and the person I look for the second I wake up.❤️<br><br>
+        I love the way we can talk for hours about everything and nothing, and how you know exactly how to comfort me without even being able to hold my hand.💗❤️<br>
+        Distance is just a test to see how far love can travel, and I think we’re winning. Thank you for being my person.❤️<br>
+        And I am counting, counting down the clicks until we’re finally together in person.💗<br>
+        They say you can't find everything you’re looking for on the internet, but I’m pretty sure I proved them wrong the day I met you.❤️<br><br>
+        I never expected that a screen could hold so much personality, so much kindness, and so much of my heart. Even though I can’t reach out and grab your hand right now, I feel you with me.❤️<br>
+        Distance is just a number, but what we have is a vibe that most people don't find even when they’re standing right next to each other. ❤️<br>
+        And you know what you’re the only person who truly gets me. I might not be able to steal your hoodies yet, but I’ve already stolen your heart (no refunds, sorry).😁❤️<br>
+        I Love you to the moon and back ❤️.<br><br>
+        Forever yours,<br>
+        Hanshika ❤️
+      </div>
+    </section>
 
-        <!-- PAGE 6 final (no "the end" line) -->
-        <section class="page page-6" id="page6">
-            <div style="text-align: center;">
-                <div class="final-heart">❤️</div>
-                <div class="final-text">I hope you liked it<br>I love you forever my Axam</div>
-                <!-- the end line completely removed -->
-            </div>
-        </section>
-    </div>
+    <!-- PAGE 6 – final (no "the end" line) -->
+    <section class="page page-6" id="page6">
+      <div style="text-align:center;">
+        <div class="final-heart">❤️</div>
+        <div class="final-message">I hope you liked it<br>I love you forever my Axam</div>
+      </div>
+    </section>
+  </div>
 
-    <!-- fixed arrow -->
-    <a href="#" id="nextArrow" class="arrow-next">→</a>
+  <!-- fixed arrow -->
+  <a href="#" id="nextArrow" class="arrow-next">→</a>
 
-    <script>
-        (function() {
-            // ---------- populate reasons list exactly (same as before) ----------
-            const reasonsList = [
-                "I love the way you say my name.",
-                "I love the way you remember small details I told you weeks ago.",
-                "I love the way you have a bed voice when you first wake up.",
-                "I love the way I feel when I see your name pop up on my lock screen.",
-                "I love the way we have our \"good morning\" and \"goodnight\" rituals.",
-                "I love the way you make the distance feel small.",
-                "I love the way you show resilience and how you handle tough days.",
-                "I love the way you show honesty, even when it’s hard.",
-                "I love the way you can make me smile even when I’m crying.",
-                "I love the way I feel completely safe when I’m talking to you.",
-                "I love the way you make me feel like I’m the most beautiful girl in the world.",
-                "I love the way I can tell you anything without fear of judgment.",
-                "I love the way you are the first person I want to tell when something good happens.",
-                "I love the way you’re also the first person I want to talk to when something goes wrong.",
-                "I love the way you make me feel home, even though we haven't shared a roof yet.",
-                "I love the way you believe in me more than I believe in myself.",
-                "I love the way you make the future look exciting instead of scary.",
-                "I love the way you make me feel chosen, every single day.",
-                "I love the way you’re the only person who can calm me down in minutes.",
-                "I love the way you’re the only person I never get tired of talking to.",
-                "I love the way we plan our future.",
-                "I love the way I know that you’re the last thing on my mind before I sleep.",
-                "I love the way you’ve become a part of my daily routine that I can't imagine losing.",
-                "I love the way you talk about \"us\" in the long term.",
-                "I love the way you always take my side, even when I'm being a bit dramatic.",
-                "I love the way you celebrate my small wins like they’re huge victories.",
-                "I love the way you have patience when I’m being stubborn.",
-                "I love the way you listen to me vent about the same thing five times.",
-                "I love the way you always know exactly what to say to make me feel better.",
-                "I love the way you make me feel like a priority, never an option.",
-                "I love the way you always notice when my energy is off through just a text.",
-                "I love the way you show your vulnerability and the way you trust me with your secrets.",
-                "I love the way you make me feel like I’m enough, exactly as I am.",
-                "I love the way you are selfless and how much you care for your family.",
-                "I love the way you handle stress with such grace.",
-                "I love the way you chose me out of billions of people on the internet.",
-                "I love the way you say \"I love you\" like you truly mean it.",
-                "I love the way you’ve seen the real me and stayed.",
-                "I love the way every day with you is better than the one before.",
-                "I love the way you always ask \"how was your day?\" and actually want to hear the long version.",
-                "I love the way your reaction time to my texts is faster than anyone else’s.",
-                "I love the way you make me feel like I’m actually sitting next to you.",
-                "I love the way your voice is the most comforting sound in the world to me.",
-                "I love the way you give me the best advice.",
-                "I love the way you’re the person who knows my silence just as well as my words.",
-                "I love the way you encourage me to take care of myself.",
-                "I love the way you handle my overthinking with so much grace.",
-                "I love the way you never make me feel like I'm too much or too difficult.",
-                "I love the way you always make me feel safe, even from thousands of miles away.",
-                "I love the way we talk about our first real life hug.",
-                "I love the way I think about waking up to your real face instead of a screen.",
-                "I love the way you make me believe in forever.",
-                "I love the way you make me feel like I’m winning at life just by having you.",
-                "I love the way you’ve made me a better version of myself.",
-                "I love the way I think about the height difference and how perfectly I’ll fit against you.",
-                "I love the way you never make me feel guilty for being busy.",
-                "I love the way you are the only person who can make me blush from 1,000 miles away.",
-                "I love the way you always let me win.",
-                "I love the way you make me feel like I’m your favorite person to talk to.",
-                "I love the way you tell me \"I’m proud of you\" for the smallest accomplishments.",
-                "I love the way you get soft only with me.",
-                "I love the way you never let a day go by without making me smile.",
-                "I love the way you’ve taught me that real love doesn't have to be physical to be felt.",
-                "I love the way you’ve become the person I trust more than anyone else.",
-                "I love the way it feels to know that you are mine.",
-                "I love the way you make me feel like I’m the smartest, funniest person you know.",
-                "I love the way you say \"I'm here.\"",
-                "I love the way you treat me with so much gentleness and care.",
-                "I love the way you are my everything.",
-                "I love the way you are you, and I wouldn't change a single thing."
-            ];
+  <script>
+    (function() {
+      // ----- POPULATE REASONS PANEL (exactly the 70+ lines) -----
+      const reasonsList = [
+        "I love the way you say my name.",
+        "I love the way you remember small details I told you weeks ago.",
+        "I love the way you have a bed voice when you first wake up.",
+        "I love the way I feel when I see your name pop up on my lock screen.",
+        "I love the way we have our \"good morning\" and \"goodnight\" rituals.",
+        "I love the way you make the distance feel small.",
+        "I love the way you show resilience and how you handle tough days.",
+        "I love the way you show honesty, even when it’s hard.",
+        "I love the way you can make me smile even when I’m crying.",
+        "I love the way I feel completely safe when I’m talking to you.",
+        "I love the way you make me feel like I’m the most beautiful girl in the world.",
+        "I love the way I can tell you anything without fear of judgment.",
+        "I love the way you are the first person I want to tell when something good happens.",
+        "I love the way you’re also the first person I want to talk to when something goes wrong.",
+        "I love the way you make me feel home, even though we haven't shared a roof yet.",
+        "I love the way you believe in me more than I believe in myself.",
+        "I love the way you make the future look exciting instead of scary.",
+        "I love the way you make me feel chosen, every single day.",
+        "I love the way you’re the only person who can calm me down in minutes.",
+        "I love the way you’re the only person I never get tired of talking to.",
+        "I love the way we plan our future.",
+        "I love the way I know that you’re the last thing on my mind before I sleep.",
+        "I love the way you’ve become a part of my daily routine that I can't imagine losing.",
+        "I love the way you talk about \"us\" in the long term.",
+        "I love the way you always take my side, even when I'm being a bit dramatic.",
+        "I love the way you celebrate my small wins like they’re huge victories.",
+        "I love the way you have patience when I’m being stubborn.",
+        "I love the way you listen to me vent about the same thing five times.",
+        "I love the way you always know exactly what to say to make me feel better.",
+        "I love the way you make me feel like a priority, never an option.",
+        "I love the way you always notice when my energy is off through just a text.",
+        "I love the way you show your vulnerability and the way you trust me with your secrets.",
+        "I love the way you make me feel like I’m enough, exactly as I am.",
+        "I love the way you are selfless and how much you care for your family.",
+        "I love the way you handle stress with such grace.",
+        "I love the way you chose me out of billions of people on the internet.",
+        "I love the way you say \"I love you\" like you truly mean it.",
+        "I love the way you’ve seen the real me and stayed.",
+        "I love the way every day with you is better than the one before.",
+        "I love the way you always ask \"how was your day?\" and actually want to hear the long version.",
+        "I love the way your reaction time to my texts is faster than anyone else’s.",
+        "I love the way you make me feel like I’m actually sitting next to you.",
+        "I love the way your voice is the most comforting sound in the world to me.",
+        "I love the way you give me the best advice.",
+        "I love the way you’re the person who knows my silence just as well as my words.",
+        "I love the way you encourage me to take care of myself.",
+        "I love the way you handle my overthinking with so much grace.",
+        "I love the way you never make me feel like I'm too much or too difficult.",
+        "I love the way you always make me feel safe, even from thousands of miles away.",
+        "I love the way we talk about our first real life hug.",
+        "I love the way I think about waking up to your real face instead of a screen.",
+        "I love the way you make me believe in forever.",
+        "I love the way you make me feel like I’m winning at life just by having you.",
+        "I love the way you’ve made me a better version of myself.",
+        "I love the way I think about the height difference and how perfectly I’ll fit against you.",
+        "I love the way you never make me feel guilty for being busy.",
+        "I love the way you are the only person who can make me blush from 1,000 miles away.",
+        "I love the way you always let me win.",
+        "I love the way you make me feel like I’m your favorite person to talk to.",
+        "I love the way you tell me \"I’m proud of you\" for the smallest accomplishments.",
+        "I love the way you get soft only with me.",
+        "I love the way you never let a day go by without making me smile.",
+        "I love the way you’ve taught me that real love doesn't have to be physical to be felt.",
+        "I love the way you’ve become the person I trust more than anyone else.",
+        "I love the way it feels to know that you are mine.",
+        "I love the way you make me feel like I’m the smartest, funniest person you know.",
+        "I love the way you say \"I'm here.\"",
+        "I love the way you treat me with so much gentleness and care.",
+        "I love the way you are my everything.",
+        "I love the way you are you, and I wouldn't change a single thing."
+      ];
 
-            const panel = document.getElementById('reasonsPanel');
-            if (panel) {
-                reasonsList.forEach(line => {
-                    const p = document.createElement('p');
-                    p.innerHTML = `<span class="heart-bullet">💗</span> ${line}`;
-                    panel.appendChild(p);
-                });
-            }
+      const panel = document.getElementById('reasonsPanel');
+      if (panel) {
+        reasonsList.forEach(line => {
+          const p = document.createElement('p');
+          p.innerHTML = `<span class="heart-bullet">💗</span> ${line}`;
+          panel.appendChild(p);
+        });
+      }
 
-            // ---------- BUTTON INTERACTIONS (YES / NO) ----------
-            const yesBtn = document.getElementById('yesBtn');
-            const noBtn = document.getElementById('noBtn');
-            const noResponse = document.getElementById('noResponse');
-            const container = document.getElementById('pagesContainer');
-            const arrow = document.getElementById('nextArrow');
+      // ----- BUTTON FUNCTIONALITY (YES / NO) -----
+      const yesBtn = document.getElementById('yesBtn');
+      const noBtn = document.getElementById('noBtn');
+      const noResponse = document.getElementById('noResponse');
+      const container = document.getElementById('pagesContainer');
+      const arrow = document.getElementById('nextArrow');
 
-            function goToPage(index) {
-                const pages = document.querySelectorAll('.page');
-                if (pages[index]) {
-                    pages[index].scrollIntoView({ behavio
+      // smooth scroll to page by index
+      function goToPage(index) {
+        const pages = document.querySelectorAll('.page');
+        if (pages[index]) {
+          pages[index].scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+
+      // YES button: go to page2 (index 1)
+      yesBtn.addEventListener('click', () => goToPage(1));
+
+      // NO button: playful interaction
+      noBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        // show big text
+        noResponse.innerText = 'How dare you?';
+        noResponse.style.visibility = 'visible';
+        noResponse.style.opacity = '1';
+        noResponse.classList.add('shake');
+        setTimeout(() => noResponse.classList.remove('shake'), 500);
+
+        // change to "Think again" after 1 sec
+        setTimeout(() => {
+          noResponse.innerText = 'Think again';
+        }, 900);
+
+        // hide after 2.5 sec
+        setTimeout(() => {
+          noResponse.innerText = '';
+          noResponse.style.visibility = 'hidden';
+        }, 2500);
+      });
+
+      // ----- ARROW: hide on last page, always navigate next -----
+      function updateArrowVisibility() {
+        const pages = document.querySelectorAll('.page');
+        let currentIdx = 0;
+        for (let i = 0; i < pages.length; i++) {
+          const rect = pages[i].getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            currentIdx = i;
+            break;
+          }
+        }
+        // page6 is index 5
+        if (currentIdx === 5) {
+          arrow.style.display = 'none';
+        } else {
+          arrow.style.display = 'flex';
+        }
+      }
+
+      container.addEventListener('scroll', updateArrowVisibility);
+      window.addEventListener('load', updateArrowVisibility);
+
+      // custom arrow click: go to next page (smooth)
+      arrow.addEventListener('click', function(e) {
+        e.preventDefault();
+        const pages = document.querySelectorAll('.page');
+        let currentIdx = 0;
+        for (let i = 0; i < pages.length; i++) {
+          const rect = pages[i].getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            currentIdx = i;
+            break;
+          }
+            
